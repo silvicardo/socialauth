@@ -1,25 +1,25 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 
-export default class FacebookFeed extends Component {
+//functional component using hooks
+const FacebookFeed = ({picture}) => {
 
-  state = {
-    posts: []
-  }
+  const [posts, setPosts] = useState([]);
 
-  componentDidMount(){
+  useEffect(() => {
 
     window.FB.api('/me/feed', (response) => {
       if(response && !response.error){
 
         //Log posts, and pass to state last 5
         console.log('feed response ' , response.data);
-        this.setState({posts: response.data.splice(0, 5)})
+        setPosts(response.data.splice(0, 5));
 
       }
-  })
-}
+    })
 
-  render(){
+  }, [])//just at first load
+
+
 
     let profilePicStyle = {maxWidth: '150px', borderRadius: '100%'};
 
@@ -27,10 +27,12 @@ export default class FacebookFeed extends Component {
       <div>
       <h1>Read your latest posts</h1>
         <ul>
-          {this.state.posts.map((post, index) =>
-            (<li key={index}><img src={this.props.picture} style={profilePicStyle} alt="noPic" />{post.message}</li>))}
+          {posts.map((post, index) =>
+            (<li key={index}><img src={picture} style={profilePicStyle} alt="noPic" />{post.message}</li>))}
         </ul>
       </div>
     );
-  }
+
 }
+
+export default FacebookFeed;
