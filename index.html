@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>SocialAuth</title>
-    <link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css">
     <style media="screen">
       #fb-btn{margin-top:20px;}
       #profile, #logout, #feed{display:none}
@@ -13,13 +13,14 @@
     <script>
       window.fbAsyncInit = function() {
         FB.init({
-          appId      : 'YOURAPPID',
+          appId      : 'your_api_key', 
           cookie     : true,
           xfbml      : true,
-          version    : 'v2.8'
+          version    : 'v3.2'
         });
 
         FB.getLoginStatus(function(response) {
+            console.log('login status response', response)
             statusChangeCallback(response);
         });
       };
@@ -28,7 +29,7 @@
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
+         js.src = "//connect.facebook.net/it_IT/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
 
@@ -58,6 +59,10 @@
 
           FB.api('/me/feed', function(response){
             if(response && !response.error){
+
+              //Qui i dati degli ultimi post
+              console.log('feed response ' , response.data);
+
               buildFeed(response);
             }
           });
