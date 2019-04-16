@@ -7,3 +7,7 @@ Forked repository to test login and basic interaction with Facebook's GRAPH API.
 
 ## Usage
 Add your app ID (https://developers.facebook.com/apps/)
+
+## React app packages
+
+https://github.com/keppelen/react-facebook-login
